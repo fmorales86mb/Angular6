@@ -1,3 +1,7 @@
+Este proyecto se realizó siguiendo el tutorial en la siguiente página:
+
+http://developinginspanish.com/2018/03/04/tutorial-angular-2-el-caparazon-shell-de-aplicacion/
+
 # AngularTourOfHeroes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
