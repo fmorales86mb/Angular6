@@ -10,7 +10,7 @@ Pertenece a FormsModule y debes importarlo para poder usarlo.-->
 <!-- La vinculación de clase de Angular facilita añadir y eliminar una clase CSS de forma condicionada. 
 [class.some-css-class]="some-condition"-->
 
-<div *ngIf="selectedHero"> 
+<!-- <div *ngIf="selectedHero"> 
     <h2>{{selectedHero.name}}</h2>
     <div><span>Id:</span> {{selectedHero.id}}</div>
     <div>
@@ -18,7 +18,7 @@ Pertenece a FormsModule y debes importarlo para poder usarlo.-->
          Name: <input [(ngModel)]="selectedHero.name" placeholder="name">
         </label>
     </div>
-</div>
+</div> -->
 
 <h2>Mis Héroes</h2>
 <ul class="heroes">
@@ -30,3 +30,7 @@ Pertenece a FormsModule y debes importarlo para poder usarlo.-->
         <span class="badge"> {{hero.id}} </span> {{hero.name}}
     </li>
 </ul>
+
+<!-- Es un vínculo de datos de un sentido desde la propiedad selectedHero de HeroesComponent hasta la propiedad hero 
+    del elemento de destino -->
+<app-hero-detail [hero] = "selectedHero"></app-hero-detail>
