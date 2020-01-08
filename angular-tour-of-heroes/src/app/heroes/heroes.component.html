@@ -1,6 +1,3 @@
-<h2>{{hero.name}}</h2>
-<div><span>Id:</span> {{hero.id}}</div>
-
 <!-- Las tuberías (pipes) son una buena forma de formatear cadenas, importes, fechas y otros datos a mostrar. 
 Angular contiene varías tuberías incorporadas y es posible crear nuevas. -->
 <!-- <div><span>Name:</span> {{hero.name | uppercase}}</div> -->
@@ -9,8 +6,27 @@ Angular contiene varías tuberías incorporadas y es posible crear nuevas. -->
 [(ngModel)] es la sintaxis Angular para la vinculacíon de doble sentido.
 Aunque ngModel es una directiva válida de Angular, no está disponible por defecto.
 Pertenece a FormsModule y debes importarlo para poder usarlo.-->
-<div>
-    <label>
-     Name: <input [(ngModel)]="hero.name" placeholder="name">
-    </label>
+
+<!-- La vinculación de clase de Angular facilita añadir y eliminar una clase CSS de forma condicionada. 
+[class.some-css-class]="some-condition"-->
+
+<div *ngIf="selectedHero"> 
+    <h2>{{selectedHero.name}}</h2>
+    <div><span>Id:</span> {{selectedHero.id}}</div>
+    <div>
+        <label>
+         Name: <input [(ngModel)]="selectedHero.name" placeholder="name">
+        </label>
+    </div>
 </div>
+
+<h2>Mis Héroes</h2>
+<ul class="heroes">
+    <!-- El *ngFor es la directiva Angular para iterar. Repite el elemento ‘anfitrión’ por cada elemento de la lista.--> 
+    <!-- Este es un ejemplo de la sintaxis de vinculación de eventos de Angular
+    El paréntesis que rodea a click el indica a Angular que escuche los eventos click sobre el elemento <li>. 
+    Cuando el usuario hace clic en <li>, Angular ejecuta la expresión onSelect(hero).-->
+    <li *ngFor="let hero of heroes" (click)= "onSelect(hero)" [class.selected] = "hero === selectedHero">
+        <span class="badge"> {{hero.id}} </span> {{hero.name}}
+    </li>
+</ul>
