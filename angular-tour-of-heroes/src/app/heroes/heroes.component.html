@@ -1,0 +1,16 @@
+<h2>{{hero.name}}</h2>
+<div><span>Id:</span> {{hero.id}}</div>
+
+<!-- Las tuberías (pipes) son una buena forma de formatear cadenas, importes, fechas y otros datos a mostrar. 
+Angular contiene varías tuberías incorporadas y es posible crear nuevas. -->
+<!-- <div><span>Name:</span> {{hero.name | uppercase}}</div> -->
+
+<!-- Vínculo de doble sentido (Two-way binding) 
+[(ngModel)] es la sintaxis Angular para la vinculacíon de doble sentido.
+Aunque ngModel es una directiva válida de Angular, no está disponible por defecto.
+Pertenece a FormsModule y debes importarlo para poder usarlo.-->
+<div>
+    <label>
+     Name: <input [(ngModel)]="hero.name" placeholder="name">
+    </label>
+</div>
