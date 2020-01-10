@@ -23,11 +23,11 @@ export class HeroesComponent implements OnInit {
 
   heroes: Hero[];
 
-  selectedHero: Hero;
+  // selectedHero: Hero;
 
-  onSelect(hero: Hero): void{
-    this.selectedHero = hero;
-  }  
+  // onSelect(hero: Hero): void{
+  //   this.selectedHero = hero;
+  // }  
 
   // Aunque podrías llamar a getHeroes() en el constructor, eso no es una buena práctica.
   // Reserva el constructor para inicializaciones simples, como asignar los parámetros del constructor a la propiedades. 

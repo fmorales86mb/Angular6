@@ -26,11 +26,14 @@ Pertenece a FormsModule y debes importarlo para poder usarlo.-->
     <!-- Este es un ejemplo de la sintaxis de vinculación de eventos de Angular
     El paréntesis que rodea a click el indica a Angular que escuche los eventos click sobre el elemento <li>. 
     Cuando el usuario hace clic en <li>, Angular ejecuta la expresión onSelect(hero).-->
-    <li *ngFor="let hero of heroes" (click)= "onSelect(hero)" [class.selected] = "hero === selectedHero">
+    <!-- <li *ngFor="let hero of heroes" (click)= "onSelect(hero)" [class.selected] = "hero === selectedHero"> -->
+    <li *ngFor="let hero of heroes">
+        <a routerLink="/detail/{{hero.id}}">            
         <span class="badge"> {{hero.id}} </span> {{hero.name}}
+        </a>
     </li>
 </ul>
 
 <!-- Es un vínculo de datos de un sentido desde la propiedad selectedHero de HeroesComponent hasta la propiedad hero 
     del elemento de destino -->
-<app-hero-detail [hero] = "selectedHero"></app-hero-detail>
+<!-- <app-hero-detail [hero] = "selectedHero"></app-hero-detail> -->

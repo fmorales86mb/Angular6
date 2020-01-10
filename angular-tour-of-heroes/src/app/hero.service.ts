@@ -26,6 +26,11 @@ export class HeroService {
     return of(HEROES);
   }
 
+  getHero(id: number): Observable<Hero>{
+    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    return of(HEROES.find(hero=> hero.id === id));
+  } 
+
   // Este es un típico escenario ‘servicio-en-servicio’ : inyectamos MessageService en HeroService el cual está 
   // inyectado en HeroesComponent.
   constructor(private messageService: MessageService) { }
