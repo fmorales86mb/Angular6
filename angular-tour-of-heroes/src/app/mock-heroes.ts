@@ -1,3 +1,4 @@
+// Este mock se reemplaza por la db simulada en memoria de in-memory-data
 import {Hero} from './hero';
 
 export const HEROES: Hero[] = [

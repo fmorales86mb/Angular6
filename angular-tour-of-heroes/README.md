@@ -1,10 +1,17 @@
+# AngularTourOfHeroes
 Este proyecto se realizó siguiendo el tutorial en la siguiente página:
-
 http://developinginspanish.com/2018/03/04/tutorial-angular-2-el-caparazon-shell-de-aplicacion/
 
-# AngularTourOfHeroes
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+
+# Simulación de servicio de datos
+
+Este tutorial imita la comunicación con un servidor de datos remoto usando el módulo In-memory web API.
+Después de instalar el módulo, la aplicación hará peticiones y recibirá respuestas de HttpClient sin saber que In-memory web API intercepta estas peticiones, aplicándolas a un almacén de datos en memoria (In-memory) y devolviendo respuestas simuladas.
+
+Desde npm, instala In-memory Web API.
+
+    npm install angular-in-memory-web-api --save
 
 ## Development server
 

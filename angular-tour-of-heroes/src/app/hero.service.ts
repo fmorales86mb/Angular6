@@ -4,13 +4,15 @@
 // El servicio HeroService puede obtener los datos de cualquier parte – un servicio web, 
 // almacenamiento local o un origen de datos simulado (mock).
 
+// Otras APIs pueden ‘enterrar’ los datos necesarios dentro de un objeto. Es posible que tengamos que ‘cavar’ en esos datos procesando el Observable de respuesta con el operador map de RxJS.
+// Para capturar el error, haremos «pipe» sobre el observable resultante de http.get(), mediante el operador de RxJS catchError().
+
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
-
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 import { MessageService } from './message.service';
 
@@ -21,17 +23,61 @@ import { MessageService } from './message.service';
 
 export class HeroService {
 
+  private heroesUrl: string = 'api/heroes';
+
   getHeroes(): Observable<Hero[]>{
-    this.messageService.add('Hero Service: funca');
-    return of(HEROES);
+    //this.messageService.add('Hero Service: funca');
+    //return of(HEROES);
+    // El operador catchError() intercepta un Observable que haya fallado. Le pasa el error a un manejador de errores que puede hacer lo que considere con el error.
+    return this.http.get<Hero[]>(this.heroesUrl)
+      .pipe(
+        tap(heroes => this.log('fetched heroes')),
+        catchError(this.handleError('getHeroes', []))
+      ); // Todos los métodos HttpClient devuelven un Observable de RxJS de algo.
   }
 
-  getHero(id: number): Observable<Hero>{
-    this.messageService.add(`HeroService: fetched hero id=${id}`);
-    return of(HEROES.find(hero=> hero.id === id));
-  } 
+  /** GET hero by id. Will 404 if id not found */
+  getHero(id: number): Observable<Hero> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.get<Hero>(url).pipe(
+      tap(_ => this.log(`fetched hero id=${id}`)),
+      catchError(this.handleError<Hero>(`getHero id=${id}`))
+    );
+  }
+	
+/**
+ * Handle Http operation that failed.
+ * Let the app continue.
+ * @param operation - name of the operation that failed
+ * @param result - optional value to return as the observable result
+ */
+private handleError<T> (operation = 'operation', result?: T) {
+  return (error: any): Observable<T> => {
+ 
+    // TODO: send the error to remote logging infrastructure
+    console.error(error); // log to console instead
+ 
+    // TODO: better job of transforming error for user consumption
+    this.log(`${operation} failed: ${error.message}`);
+ 
+    // Let the app keep running by returning an empty result.
+    return of(result as T);
+  };
+}
+
+  // getHero(id: number): Observable<Hero>{
+  //   this.messageService.add(`HeroService: fetched hero id=${id}`);
+  //   return of(HEROES.find(hero=> hero.id === id));
+  // } 
+
+  private log(message: string):void{
+    this.messageService.add('HeroService: ' + message);
+  }
 
   // Este es un típico escenario ‘servicio-en-servicio’ : inyectamos MessageService en HeroService el cual está 
   // inyectado en HeroesComponent.
-  constructor(private messageService: MessageService) { }
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+    ) { }
 }

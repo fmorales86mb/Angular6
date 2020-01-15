@@ -25,6 +25,11 @@ export class HeroDetailComponent implements OnInit {
     this.location.back();
   }
 
+  save():void{
+    // this.heroService.updateHero(this.hero)
+    //   .subscribe(()=> this.goBack()); // esto hace que vuelva atrás. Ver el subscribe
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute, // Guarda información acerca de la ruta a esta instancia
     private location: Location, //  Es un servicio de Angular para interactuar con el navegador
