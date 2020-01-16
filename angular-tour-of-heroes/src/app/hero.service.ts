@@ -25,6 +25,11 @@ export class HeroService {
 
   private heroesUrl: string = 'api/heroes';
 
+  // La API web de héroes espera una cabecera HTTP concreta en las peticiones de guardado.
+  private httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  }
+
   getHeroes(): Observable<Hero[]>{
     //this.messageService.add('Hero Service: funca');
     //return of(HEROES);
@@ -42,6 +47,15 @@ export class HeroService {
     return this.http.get<Hero>(url).pipe(
       tap(_ => this.log(`fetched hero id=${id}`)),
       catchError(this.handleError<Hero>(`getHero id=${id}`))
+    );
+  }
+
+  /** PUT: update the hero on the server */
+  updateHero(hero: Hero): Observable<any>{
+    // La URL no ha cambiado. La API web de héroes conoce cual es el héroe a actualizar observando el id del héroe
+    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap(_ => this.log(`update hero ${hero.id}`)),
+      catchError(this.handleError<any>('updateHero'))
     );
   }
 	
