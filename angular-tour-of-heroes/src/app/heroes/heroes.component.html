@@ -37,6 +37,7 @@ Pertenece a FormsModule y debes importarlo para poder usarlo.-->
         <a routerLink="/detail/{{hero.id}}">            
         <span class="badge"> {{hero.id}} </span> {{hero.name}}
         </a>
+        <button class="delete" title="delete hero" (click)="delete(hero)">X</button>
     </li>
 </ul>
 

@@ -53,6 +53,20 @@ export class HeroesComponent implements OnInit {
       });
   }
 
+  delete(hero:Hero): void{
+    // Aunque el componente delega el borrado del héroe en HeroService, sigue siendo responsable de actualizar su propio 
+    // listado de héroes. El método delete() del componente borra inmediatamente el héroe a borrar de la lista, anticipando 
+    // que HeroService.
+    this.heroes = this.heroes.filter(h => h !== hero);
+    // En realidad, no hay nada que el componente deba hacer con el Observable devuelto por heroService.delete(). 
+    // Debe suscribirse de todas maneras.
+    // Si dejáramos de usar susbscribe(), el servicio no enviaría la petición de borrado al servidor. 
+    // Como norma general, un Observable no hace nada hasta que alguien se suscribe. 
+    // Comprueba esto por ti mismo eliminando temporalmente subscribe(), haciendo clic en «Dashboard» (Cuadro de Mandos) y 
+    // después haciendo clic en «Heroes». Verás la lista de héroes completa de nuevo.
+    this.heroService.deleteHero(hero).subscribe();
+  }
+
     // El parámetro define simultáneamente una propiedad privada heroService y lo identifica como una inyección HeroService.
   // Cuando Angular crea un HeroComponent, el sistema de Inyección de Dependencias establece el parámetro heroService 
   // como la instancia única (singleton) de HeroService.
