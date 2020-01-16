@@ -78,6 +78,17 @@ export class HeroService {
       catchError(this.handleError<Hero>('delteHero'))
     );
   }
+
+  /* GET heroes whose name contains search term */
+  searchHeroes(term: string): Observable<Hero[]>{
+    if(!term.trim()) return of([]); // El método devuelve inmediatamente un array vacío si no hay un término a buscar.
+    
+    // La URL incluye una cadena de consulta con el termino a buscar.
+    return this.http.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
+      tap(_ => this.log(`found heroes matching "${term}"`)),
+      catchError(this.handleError<Hero[]>('searchHeroes', []))
+    );
+  }
 	
   /**
    * Handle Http operation that failed.
