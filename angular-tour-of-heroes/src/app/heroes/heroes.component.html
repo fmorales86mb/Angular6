@@ -21,6 +21,12 @@ Pertenece a FormsModule y debes importarlo para poder usarlo.-->
 </div> -->
 
 <h2>Mis Héroes</h2>
+<div>
+    <label>Hero Name: 
+        <input #heroName />
+    </label>
+    <button (click)="add(heroName.value); heroName.value = ''">Agregar</button>
+</div>
 <ul class="heroes">
     <!-- El *ngFor es la directiva Angular para iterar. Repite el elemento ‘anfitrión’ por cada elemento de la lista.--> 
     <!-- Este es un ejemplo de la sintaxis de vinculación de eventos de Angular

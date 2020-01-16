@@ -58,6 +58,15 @@ export class HeroService {
       catchError(this.handleError<any>('updateHero'))
     );
   }
+
+  // espera a que el servidor genere un id para el nuevo héroe, el cual devuelve en Observable<Hero> al invocador.
+  /** POST: add a new hero to the server */
+  addHero(hero: Hero): Observable<Hero>{
+    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap((hero:Hero) => this.log(`added hero id=${hero.id}`)),
+      catchError(this.handleError<Hero>('add hero'))
+    );
+  }
 	
 /**
  * Handle Http operation that failed.

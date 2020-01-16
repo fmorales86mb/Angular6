@@ -40,6 +40,19 @@ export class HeroesComponent implements OnInit {
       .subscribe(heroes => this.heroes = heroes);
   }
 
+  // Cuando el nombre no está vacío, el manejador crea un objeto Hero a partir del nombre (tan sólo le falta el id) y se 
+  // lo pasa al método addHero() del servicio. Cuando addHero guarda con éxito, la retrollamada subscribe recibe el 
+  // nuevo héroe y lo inserta en la lista de heroes a mostrar.
+  add(name:string):void{
+    name = name.trim();
+    if(!name) return;
+
+    this.heroService.addHero({name} as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
     // El parámetro define simultáneamente una propiedad privada heroService y lo identifica como una inyección HeroService.
   // Cuando Angular crea un HeroComponent, el sistema de Inyección de Dependencias establece el parámetro heroService 
   // como la instancia única (singleton) de HeroService.
